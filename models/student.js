@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
-const mongooseConfig = require('../config/db.config').mongoose;
-
-let Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 let studentDetailsSchema = new Schema({
     name: {
@@ -49,15 +47,48 @@ let studentDetailsSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'users'
     },
-    educationalDetailsID: [{ 
-            type: Schema.Types.ObjectId,
-            ref:  'educationalDetails'
-        }
-    ]
+    educationalDetailsID: [{
+        type: Schema.Types.ObjectId,
+        ref:  'educationalDetails'
+    }
+],
+    extraCurricularActivities: [{
+        type: Schema.Types.ObjectId,
+        ref:  'extraCurricularActivities'
+    }
+],
+    familyDetails: {
+        type: Schema.Types.ObjectId,
+        ref:  'familyDetails'
+    },
+    fundDetails: {
+        type: Schema.Types.ObjectId,
+        ref:  'fundDetails'
+    },
+    hobbies: {
+        type: Schema.Types.ObjectId,
+        ref:  'hobbies'
+    },
+    language: [{
+        type: Schema.Types.ObjectId,
+        ref:  'language'
+    }
+],    
+    researchInterests: {
+        type: Schema.Types.ObjectId,
+        ref:  'researchInterests'
+    },
+    studentAddress: {
+        type: Schema.Types.ObjectId,
+        ref:  'studentAddress'
+    },
+    studentAptitudeTest: [{
+        type: Schema.Types.ObjectId,
+        ref:  'studentAptitudeTest'
+    }
+]
 });
 
-var studentDetails = mongoose.model('studentPersonal', studentDetailsSchema);
+let studentDetails = mongoose.model('studentPersonal', studentDetailsSchema);
 
-module.exports = {
-    studentDetails
-}
+module.exports = studentDetails

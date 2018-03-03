@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const mongooseConfig = require('../config/db.config');
-const {studentDetails} = require('../models/student');
+const studentDetails = require('../models/student');
 
 // API end poing for Saving student details
 router.post('/studentDetails', function(req, res, next) {
@@ -41,4 +41,13 @@ router.patch('/studentDetails/:studentDetailsId', function(req, res) {
         });
 });
 
-module.exports = router
+//API endpoint to fetch the student with a particular ID
+router.get('/studentDetails/:studentDetailsId', function(req, res) {
+    studentDetails.findById(req.params.studentDetailsId).then((success) => {
+        res.status(200).send(success);
+    }, (error) => {
+        res.status(500).send(error);
+    });
+});
+
+module.exports = router;

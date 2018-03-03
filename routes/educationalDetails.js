@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const mongooseConfig = require('../config/db.config');
-const {studentDetails} = require('../models/student');
-const {educationalDetails} = require('../models/educationalDetails');
+const studentDetails = require('../models/student');
+const educationalDetails = require('../models/educationalDetails');
 
 //API endpoint to add an individual educationalDetails document
 router.post('/educationalDetails/:studentId', function(req, res) {

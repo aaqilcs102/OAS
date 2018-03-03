@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const mongooseConfig = require('../config/db.config').mongoose;
-
 const Schema = mongoose.Schema;
 
 let educationalDetailsSchema = new Schema({
@@ -41,11 +39,8 @@ let educationalDetailsSchema = new Schema({
     },
     thesisCheck: {
         type: Boolean
-        
     }
 });
-var educationalDetails = mongoose.model('educationalDetails', educationalDetailsSchema);
+let educationalDetails = mongoose.model('educationalDetails', educationalDetailsSchema);
 
-module.exports = {
-    educationalDetails
-}
+module.exports = educationalDetails

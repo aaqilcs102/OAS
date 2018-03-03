@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
-const mongooseConfig = require('../config/db.config').mongoose;
-
-let Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 let userSchema = new Schema({
     name: {
@@ -32,8 +30,6 @@ let userSchema = new Schema({
     }
 });
 
-var user = mongoose.model('user', userSchema);
+let user = mongoose.model('user', userSchema);
 
-module.exports = {
-    user
-}
+module.exports = user
