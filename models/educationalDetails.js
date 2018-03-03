@@ -41,6 +41,7 @@ let educationalDetailsSchema = new Schema({
     },
     thesisCheck: {
         type: Boolean
+        
     }
 });
 var educationalDetails = mongoose.model('educationalDetails', educationalDetailsSchema);
