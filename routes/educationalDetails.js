@@ -5,7 +5,7 @@ const mongooseConfig = require('../config/db.config');
 const studentDetails = require('../models/student');
 const educationalDetails = require('../models/educationalDetails');
 
-//API endpoint to add an individual educationalDetails document
+//API endpoint to add an individual educationalDetails document against a particular student record
 router.post('/educationalDetails/:studentId', function(req, res) {
     let educationalDetailsInstance;
     let reqInstance = {
@@ -24,8 +24,7 @@ router.post('/educationalDetails/:studentId', function(req, res) {
     educationalDetailsInstance = new educationalDetails(reqInstance);
 
     studentDetails.find({_id: req.params.studentId}).then((doc) => {
-
-    educationalDetailsInstance.save()
+        educationalDetailsInstance.save()
         .then((success) => {
             doc[0].educationalDetailsID .push(success);
             doc[0].save().then((success) => {
@@ -35,7 +34,7 @@ router.post('/educationalDetails/:studentId', function(req, res) {
             res.send('Not able to add educational Details, error: ' + error);
         });
     }, (error) => {
-        console.log('Error: ' + error);
+        res.send('Error: ' + error);
     });
 });
 

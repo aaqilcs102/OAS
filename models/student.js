@@ -52,37 +52,41 @@ let studentDetailsSchema = new Schema({
         ref:  'educationalDetails'
     }
 ],
-    extraCurricularActivities: [{
+    extraCurricularActivitiesID: [{
         type: Schema.Types.ObjectId,
         ref:  'extraCurricularActivities'
     }
 ],
-    familyDetails: {
+    familyDetailsID: {
         type: Schema.Types.ObjectId,
         ref:  'familyDetails'
     },
-    fundDetails: {
+    fundDetailsID: {
         type: Schema.Types.ObjectId,
         ref:  'fundDetails'
     },
-    hobbies: {
+    hobbiesID: {
         type: Schema.Types.ObjectId,
         ref:  'hobbies'
     },
-    language: [{
+    languageID: [{
         type: Schema.Types.ObjectId,
         ref:  'language'
     }
 ],    
-    researchInterests: {
+    researchInterestsID: {
         type: Schema.Types.ObjectId,
         ref:  'researchInterests'
     },
-    studentAddress: {
+    bankDetailsID: {
+        type: Schema.Types.ObjectId,
+        ref:  'bankDetails'
+    },
+    studentAddressID: {
         type: Schema.Types.ObjectId,
         ref:  'studentAddress'
     },
-    studentAptitudeTest: [{
+    studentAptitudeTestID: [{
         type: Schema.Types.ObjectId,
         ref:  'studentAptitudeTest'
     }
