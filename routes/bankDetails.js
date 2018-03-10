@@ -13,9 +13,8 @@ router.post('/bankDetails/:studentId', function(req, res) {
           accountTitle: req.body.accountTitle,
           accountNumber: req.body.accountNumber
     }
-
+    
     bankDetailsInstance = new studentDetails(reqInstance);
-
     studentDetails.find({_id: req.params.studentId}).then((doc) => {
         bankDetailsInstance.save()
         .then((success) => {
