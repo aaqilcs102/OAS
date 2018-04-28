@@ -20,6 +20,7 @@ let bankDetailsSchema = new Schema({
       }
 });
 
+
 let bankDetails = mongoose.model('bankDetails', bankDetailsSchema);
 
 module.exports = bankDetails;
