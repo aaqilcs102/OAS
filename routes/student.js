@@ -3,9 +3,17 @@ const router = express.Router();
 
 const mongooseConfig = require('../config/db.config');
 const studentDetails = require('../models/student');
+const {aclInstance} = require('../acls/studentACLs');
+const {verifyJWTToken} = require('../helpers/helpers');
 
 // API end poing for Saving student details
 router.post('/studentDetails', function(req, res, next) {
+    // console.log(req);
+    // aclInstance.isAllowed('Muhammad Aaqil', 'student', 'read').then((success) => {
+    //     console.log(success);
+    // }, (err) => {  
+    //     console.log(err);
+    // });
     let studentInstance;
     let reqInstance = {
         name: req.body.name,
@@ -42,12 +50,22 @@ router.patch('/studentDetails/:studentDetailsId', function(req, res) {
 });
 
 //API endpoint to fetch the student with a particular ID
-router.get('/studentDetails/:studentDetailsId', function(req, res) {
+router.get('/studentDetails/:studentDetailsId',  function(req, res) {
+    let token = req.headers.authorization.substring(7);
+    verifyJWTToken(token).then((success) => {
+        console.log(req.user);
+    }, (failed) => {
+        console.log('failed ' + failed);
+    });
     studentDetails.findById(req.params.studentDetailsId).then((success) => {
         res.status(200).send(success);
     }, (error) => {
         res.status(500).send(error);
     });
 });
+
+// router.post('/login', function(req, res) {
+//     console.log(req.body);
+// });
 
 module.exports = router;
