@@ -1,46 +1,62 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-let educationalDetailsSchema = new Schema({
+const student = require("./student");
+
+let educationalDetails = (module.exports = mongoose.model(
+  "educationalDetails",
+  {
     degreeName: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     degreeLevel: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     degreeInstitute: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     degreeSubject: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     totalMarks: {
-        type: Number,
+      type: Number
     },
     obtainedMarks: {
-        type: Number,
+      type: Number
     },
     totalGPA: {
-        type: Number,
+      type: Number
     },
     obtainedGPA: {
-        type: Number,
+      type: Number
     },
     passingYear: {
-        type: Date
+      type: Date
     },
     rollNumber: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     thesisCheck: {
-        type: Boolean
+      type: Boolean
     }
-});
-let educationalDetails = mongoose.model('educationalDetails', educationalDetailsSchema);
+  }
+));
 
-module.exports = educationalDetails
+educationalDetails.addEducationalDetails = (input, sutdentId) => {
+  student.find({ _id: studentId }).then(result => {
+    return new educationalDetails(input)
+      .save()
+      .then(success => {
+        result[0].educationalDetailsID.push(success);
+        return result[0].save();
+      })
+      .catch(err => {
+        console.log("failed");
+      });
+  });
+};

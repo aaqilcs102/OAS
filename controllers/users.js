@@ -15,7 +15,6 @@ module.exports = {
     let hashedPassword;
 
     if (
-      typeof name !== "string" ||
       typeof password !== "string" ||
       typeof userType !== "string" ||
       !emailValidator(email)
@@ -25,7 +24,7 @@ module.exports = {
         status: 422,
         response: false,
         err_code: "INVALID_INPUT",
-        message: `name, email, password and userType are required as string. Password must be 8 character long and have at least one number.`
+        message: `email, password and userType are required as string. Password must be 8 character long and have at least one number.`
       });
     }
     hashedPassword = bcrypt.hashSync(password, 8);
