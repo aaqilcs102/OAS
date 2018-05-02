@@ -20,12 +20,12 @@ module.exports = {
 
     if (
       typeof name != "string" ||
-      typeof cnic != "string" ||
+      typeof cnic != "string" &&
+      typeof passport != "string" ||
       typeof fatherName != "string" ||
       typeof applyFor != "string" ||
       typeof district != "string" ||
       typeof domicile != "string" ||
-      typeof passport != "string" ||
       typeof mobileNumber != "string" ||
       typeof email != "string" ||
       typeof gender != "string" ||
@@ -76,31 +76,11 @@ module.exports = {
         });
       });
   },
-  updateStudent: (req, res) => {
-    let { studentDetailsId } = req.params;
-    let { id } = req.body;
-    model
-      .updateStudent(id, studentDetailsId)
-      .then(result => {
-        return res.status(200).json({
-          response: true,
-          message: "student updated successfully.",
-          userId: result._id
-        });
-      })
-      .catch(err => {
-        return next({
-          json: true,
-          status: 422,
-          response: false,
-          err_code: "DB_OPERATION_FAILURE",
-          message: `failed to update student profile.`
-        });
-      });
-  },
+
   getStudent: (req, res) => {
+    const { studentDetailsId } = req.params;
     model
-      .getStudent()
+      .getStudent(studentDetailsId)
       .then(result => {
         return res.status(200).json({
           response: true,

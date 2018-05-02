@@ -47,16 +47,37 @@ let educationalDetails = (module.exports = mongoose.model(
   }
 ));
 
-educationalDetails.addEducationalDetails = (input, sutdentId) => {
-  student.find({ _id: studentId }).then(result => {
-    return new educationalDetails(input)
-      .save()
-      .then(success => {
-        result[0].educationalDetailsID.push(success);
-        return result[0].save();
-      })
-      .catch(err => {
-        console.log("failed");
+educationalDetails.addEducationalDetails = (input, studentId, next) => {
+  return student
+    .findById(studentId)
+    .then(result => {
+      return new educationalDetails(input)
+        .save()
+        .then(success => {
+          result[0].educationalDetailsID.push(success);
+          return result[0].save();
+        })
+        .catch(err => {
+          console.log("failedasdf");
+          return next({
+            json: true,
+            status: 422,
+            response: false,
+            err_code: "DB_OPERATION_FAILURE",
+            message: `Failed to add education details.`,
+            err: err
+          });
+        });
+    })
+    .catch(err => {
+      console.log("failed");
+      return next({
+        json: true,
+        status: 422,
+        response: false,
+        err_code: "DB_OPERATION_FAILURE",
+        message: `Failed to add education details.`,
+        err: err
       });
-  });
+    });
 };

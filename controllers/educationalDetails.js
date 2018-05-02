@@ -1,5 +1,8 @@
+const model = require("../models/educationalDetails");
+const mongoose = require("mongoose");
+
 module.exports = {
-  addEducationalDetails: function(req, res) {
+  addEducationalDetails: function(req, res, next) {
     const {
       degreeName,
       degreeLevel,
@@ -14,9 +17,20 @@ module.exports = {
       thesisCheck
     } = req.body;
 
-    const studentId = req.params;
+    const { studentId } = req.params;
 
-    if (condition) {
+    if (
+      typeof degreeName != "string" ||
+      typeof degreeLevel != "string" ||
+      typeof degreeInstitute != "string" ||
+      typeof degreeSubject != "string" ||
+      ((typeof totalMarks != "number" || typeof obtainedMarks != "number") &&
+        (typeof totalGPA != "number" || typeof obtainedGPA != "number")) ||
+      typeof passingYear != "number" ||
+      typeof rollNumber != "string" ||
+      typeof thesisCheck != "boolean" ||
+      !mongoose.Types.ObjectId.isValid(studentId)
+    ) {
       return next({
         json: true,
         status: 422,
@@ -27,7 +41,7 @@ module.exports = {
     }
 
     model
-      .addEducationalDetails(req.body, studentId)
+      .addEducationalDetails(req.body, studentId, next)
       .then(result => {
         return res.status(200).json({
           response: true,
@@ -36,12 +50,22 @@ module.exports = {
         });
       })
       .catch(err => {
+        if (err.name == "CastError") {
+          return next({
+            json: true,
+            status: 422,
+            response: false,
+            err_code: "INVALID_INPUT",
+            message: `studentId not valid in URI.`
+          });
+        }
         return next({
           json: true,
           status: 422,
           response: false,
           err_code: "DB_OPERATION_FAILURE",
-          message: `Failed to add education details.`
+          message: `Failed to add education details.`,
+          err: err
         });
       });
   }

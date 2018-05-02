@@ -13,8 +13,5 @@ const {
 // API end poing for Saving student details
 router.post("/profile", createStudent);
 
-//API endpoint to add ID educational Details of the student
-router.patch("/studentDetails/:studentDetailsId", updateStudent);
-
 //API endpoint to fetch the student with a particular ID
-router.get("/studentDetails/:studentDetailsId", getStudent);
+router.get("/profile/:studentDetailsId", getStudent);

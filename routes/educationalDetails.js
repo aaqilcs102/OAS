@@ -1,8 +1,5 @@
 const express = require("express");
 
-const mongooseConfig = require("../config/db.config");
-const studentDetails = require("../models/student");
-const educationalDetails = require("../models/educationalDetails");
 const { addEducationalDetails } = require("../controllers/educationalDetails");
 
 const router = module.exports = express.Router();

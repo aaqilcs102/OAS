@@ -101,12 +101,6 @@ student.createStudent = studentObject => {
   return new student(studentObject).save();
 };
 
-student.updateStudent = (id, studentDetailsId) => {
-  return student.findByIdAndUpdate(studentDetailsId, {
-    $push: { educationalDetailsID: id }
-  });
-};
-
-student.getStudent = studentDetailsId => {
-  return student.findById(studentDetailsId);
+student.getStudent = _id => {
+  return student.findById(_id);
 };

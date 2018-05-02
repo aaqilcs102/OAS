@@ -30,7 +30,7 @@ module.exports = {
     hashedPassword = bcrypt.hashSync(password, 8);
 
     user
-      .registerUser(req.body, hashedPassword)
+      .register(req.body, hashedPassword)
       .then(result => {
         return res.status(200).json({
           response: true,
@@ -123,7 +123,7 @@ module.exports = {
             status: 404,
             response: false,
             err_code: "RECORED_NOT_FOUND",
-            message: 'User not found with provided email address.'
+            message: "User not found with provided email address."
           });
         }
       })

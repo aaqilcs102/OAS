@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+
+const student = require("./student");
+
 const Schema = mongoose.Schema;
 
 let bankDetails = (module.exports = mongoose.model("bankDetails", {
@@ -21,10 +24,10 @@ let bankDetails = (module.exports = mongoose.model("bankDetails", {
 }));
 
 bankDetails.addBankDetails = (input, _id) => {
-  find({ _id }).then(doc => {
-    new bankDetails(input).save().then(result => {
-      doc[0].bankDetailsID = result;
-      doc[0].save();
+  return student.find({ _id }).then(doc => {
+    return new bankDetails(input).save().then(result => {
+      doc[0].bankDetailsID.push(result);
+      return doc[0].save();
     });
   });
 };
